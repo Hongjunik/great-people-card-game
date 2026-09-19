@@ -1,8 +1,14 @@
 services:
   php:
-    image: php:8.4-cli
+    build: .
     ports:
       - "127.0.0.1:8080:8000"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: "3306"
+      DB_NAME: ${MYSQL_DATABASE}
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - type: bind
         source: ./public
