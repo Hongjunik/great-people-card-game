@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="560" viewBox="0 0 400 560">
+  <rect width="400" height="560" rx="24" fill="#eeeeee"/>
+  <text x="200" y="250" text-anchor="middle" font-size="36" font-family="sans-serif">CARD A</text>
+  <text x="200" y="310" text-anchor="middle" font-size="20" font-family="sans-serif">TEST IMAGE</text>
+</svg>

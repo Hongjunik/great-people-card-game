@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Card Draw Test</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 500px;
+            margin: 400px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #card {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 16px;
+        }
+
+        #card-image {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 12px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #error {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>카드 뽑기 테스트</h1>
+
+    <button id="draw-button">
+        Common 카드뽑기
+    </button>
+
+    <p id="error"></p>
+
+    <div id="card">
+        <img id="card-image" alt="카드 이미지">
+
+        <h2 id="card-name"></h2>
+
+        <p>
+            인물:
+            <span id="person-name"></span>
+        </p>
+
+        <p>
+            등급:
+            <span id="rarity"></span>
+        </p>
+
+        <p>
+            코드:
+            <span id="card-code"></span>
+        </p>
+    </div>
+
+    <script>
+        const drawButton = document.getElementById('draw-button');
+
+        const cardElement = document.getElementById('card');
+        const cardImage = document.getElementById('card-image');
+        const cardName = document.getElementById('card-name');
+        const personName = document.getElementById('person-name');
+        const rarity = document.getElementById('rarity');
+        const cardCode = document.getElementById('card-code');
+
+        const errorElement = document.getElementById('error');
+
+        drawButton.addEventListener('click', async () => {
+            errorElement.textContent = '';
+
+            try {
+                const response =
+                    await fetch('/draw-test.php?rarity=Common');
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.error ?? '카드 뽑기에 실패했습니다.'
+                    );
+                }
+
+                const card = data.card;
+
+                cardImage.src = card.image_path;
+                cardName.textContent = card.card_name;
+                personName.textContent = card.person_name;
+                rarity.textContent = card.rarity;
+                cardCode.textContent = card.card_code;
+
+                cardElement.style.display = 'block';
+
+            } catch (error) {
+                cardElement.style.display = 'none';
+                errorElement.textContent = error.message;
+            }
+        });
+    </script>
+
+</body>
+</html>
