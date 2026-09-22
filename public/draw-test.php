@@ -2,18 +2,20 @@
 
 header('Context-Type: application/json; charset=UTF-8');
 
-$rarity = $_GET['rarity'] ?? null;
-
-if ($rarity === null || $rarity === '') {
+// 테스트 단계에서는 카드 등급을 서버가 결정한다.
+// 실제 카드팩 확률 및 행운 시스템은 아직 구현하지 않는다.
+if (array_key_exists('rarity', $_GET)) {
     http_response_code(400);
 
     echo json_encode(
-        ['error' => 'rarity가 필요합니다.'],
+        ['error' => '카드 등급은 클라이언트가 지정할 수 없습니다.'],
         JSON_UNESCAPED_UNICODE
     );
 
     exit;
 }
+
+$rarity = 'Common';
 
 $dsn = sprintf(
     'mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4',

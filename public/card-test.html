@@ -45,7 +45,7 @@
     <h1>카드 뽑기 테스트</h1>
 
     <button id="draw-button">
-        Common 카드뽑기
+        테스트 카드 뽑기
     </button>
 
     <p id="error"></p>
@@ -88,7 +88,7 @@
 
             try {
                 const response =
-                    await fetch('/draw-test.php?rarity=Common');
+                    await fetch('/draw-test.php');
 
                 const data = await response.json();
 
